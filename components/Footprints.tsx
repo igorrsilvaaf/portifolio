@@ -199,9 +199,9 @@ const Footprints: React.FC = () => {
   }, []);
 
   return (
-    // Z-30 ensures footprints are ABOVE the content background (about cards etc)
-    // text-ink-dark makes them darker/bolder
-    <div className="fixed inset-0 pointer-events-none z-30 overflow-hidden text-ink-dark">
+    // Z-0 ensures footprints are BEHIND the content cards (which are inside z-20 container)
+    // but visible on the background
+    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden text-ink-dark">
       {actors.map(actor => (
         <React.Fragment key={actor.id}>
           {/* Render Footprints */}

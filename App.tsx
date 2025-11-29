@@ -34,6 +34,7 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen w-full bg-parchment-dark bg-paper-texture text-ink font-serif relative overflow-x-hidden">
       {/* Persistent Footprints Layer - Remains mounted to keep trails alive */}
+      {/* z-0 places them behind the content containers (which are z-20 or z-10) */}
       <Footprints />
 
       {/* Conditional Content Layer */}
@@ -61,7 +62,8 @@ const App: React.FC = () => {
         </div>
       ) : (
         // Main Portfolio
-        <div className="min-h-screen bg-parchment/90 transition-opacity duration-1000 animate-fade-in relative z-20">
+        // Removed bg-parchment/90 so the footprints on the "floor" are fully visible
+        <div className="min-h-screen transition-opacity duration-1000 animate-fade-in relative z-20">
           
           {/* Header / Nav */}
           <header className="fixed top-0 left-0 right-0 z-50 bg-parchment/95 border-b-2 border-ink shadow-lg backdrop-blur-sm">
@@ -113,7 +115,7 @@ const App: React.FC = () => {
           {/* Main Content Area - The "Map" */}
           <main className="pt-24 pb-12 px-4 max-w-6xl mx-auto relative z-10 min-h-screen">
             
-            {/* Paper Container */}
+            {/* Paper Container - Needs to be opaque to hide footprints behind it */}
             <div className="bg-parchment-light border-8 border-double border-ink/40 p-6 md:p-12 shadow-2xl relative min-h-[80vh] transform rotate-[0.5deg]">
               {/* Corner Decorations */}
               <div className="absolute top-0 left-0 w-16 h-16 border-t-4 border-l-4 border-ink pointer-events-none"></div>

@@ -31,111 +31,115 @@ const App: React.FC = () => {
     setActiveSection('about');
   };
 
-  if (!unlocked) {
-    return (
-      <div className="h-screen w-full bg-parchment-dark flex flex-col items-center justify-center relative overflow-hidden bg-paper-texture">
-        <div className="absolute inset-0 bg-black/40 z-10"></div>
-        <div className="z-20 text-center p-8 border-4 border-double border-ink rounded-lg bg-parchment max-w-2xl mx-4 shadow-2xl transform transition-all duration-1000 hover:scale-105">
-          <h1 className="text-4xl md:text-6xl font-serif text-ink mb-8 font-bold tracking-wider">
-            O Mapa do Maroto
-          </h1>
-          <p className="text-xl md:text-2xl font-handwriting text-ink-light mb-12">
-            Os Srs. Aluado, Rabicho, Almofadinhas e Pontas <br/>
-            apresentam orgulhosamente o portfólio de {USER_INFO.name}
-          </p>
-          <button 
-            onClick={handleUnlock}
-            className="group relative px-8 py-4 bg-transparent border-2 border-ink text-ink font-bold text-lg md:text-xl rounded hover:bg-ink hover:text-parchment transition-all duration-300 overflow-hidden"
-          >
-            <span className="relative z-10 font-serif uppercase tracking-widest">
-              Juro solenemente não fazer nada de bom
-            </span>
-          </button>
-        </div>
-        <Footprints />
-      </div>
-    );
-  }
-
   return (
-    <div className="min-h-screen bg-parchment bg-paper-texture text-ink font-serif relative transition-opacity duration-1000 animate-fade-in">
+    <div className="min-h-screen w-full bg-parchment-dark bg-paper-texture text-ink font-serif relative overflow-x-hidden">
+      {/* Persistent Footprints Layer - Remains mounted to keep trails alive */}
       <Footprints />
 
-      {/* Header / Nav */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-parchment/95 border-b-2 border-ink shadow-lg backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
-            <div className="flex items-center">
-              <span className="font-handwriting text-3xl text-gryffindor font-bold">
-                {USER_INFO.name}
-              </span>
+      {/* Conditional Content Layer */}
+      {!unlocked ? (
+        // Intro Screen
+        <div className="h-screen w-full flex flex-col items-center justify-center relative z-20 animate-fade-in">
+            <div className="absolute inset-0 bg-black/40 z-10 pointer-events-none"></div>
+            <div className="z-20 text-center p-8 border-4 border-double border-ink rounded-lg bg-parchment max-w-2xl mx-4 shadow-2xl transform transition-all duration-1000 hover:scale-105">
+            <h1 className="text-4xl md:text-6xl font-serif text-ink mb-8 font-bold tracking-wider">
+                O Mapa do Maroto
+            </h1>
+            <p className="text-xl md:text-2xl font-handwriting text-ink-light mb-12">
+                Os Srs. Aluado, Rabicho, Almofadinhas e Pontas <br/>
+                apresentam orgulhosamente o portfólio de {USER_INFO.name}
+            </p>
+            <button 
+                onClick={handleUnlock}
+                className="group relative px-8 py-4 bg-transparent border-2 border-ink text-ink font-bold text-lg md:text-xl rounded hover:bg-ink hover:text-parchment transition-all duration-300 overflow-hidden cursor-pointer"
+            >
+                <span className="relative z-10 font-serif uppercase tracking-widest">
+                Juro solenemente não fazer nada de bom
+                </span>
+            </button>
             </div>
+        </div>
+      ) : (
+        // Main Portfolio
+        <div className="min-h-screen bg-parchment/90 transition-opacity duration-1000 animate-fade-in relative z-20">
+          
+          {/* Header / Nav */}
+          <header className="fixed top-0 left-0 right-0 z-50 bg-parchment/95 border-b-2 border-ink shadow-lg backdrop-blur-sm">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex justify-between items-center h-20">
+                <div className="flex items-center">
+                  <span className="font-handwriting text-3xl text-gryffindor font-bold">
+                    {USER_INFO.name}
+                  </span>
+                </div>
+                
+                {/* Desktop Nav */}
+                <nav className="hidden md:flex space-x-8">
+                  <NavButton active={activeSection === 'about'} onClick={() => setActiveSection('about')} icon={<ScrollText size={18} />} label="Sobre" />
+                  <NavButton active={activeSection === 'experience'} onClick={() => setActiveSection('experience')} icon={<Briefcase size={18} />} label="Experiência" />
+                  <NavButton active={activeSection === 'skills'} onClick={() => setActiveSection('skills')} icon={<Code size={18} />} label="Habilidades" />
+                  <NavButton active={activeSection === 'portfolio'} onClick={() => setActiveSection('portfolio')} icon={<Map size={18} />} label="Portfólio" />
+                  <NavButton active={activeSection === 'contact'} onClick={() => setActiveSection('contact')} icon={<Mail size={18} />} label="Contato" />
+                </nav>
+
+                <div className="flex items-center space-x-4">
+                  <button onClick={handleLock} className="text-xs uppercase tracking-widest border border-ink px-3 py-1 hover:bg-ink hover:text-parchment transition-colors hidden md:block">
+                    Malfeito feito
+                  </button>
+                  <button className="md:hidden" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+                    {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Mobile Menu */}
+            {isMobileMenuOpen && (
+              <div className="md:hidden bg-parchment border-b border-ink absolute w-full">
+                <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col items-center">
+                  <MobileNavButton active={activeSection === 'about'} onClick={() => { setActiveSection('about'); setIsMobileMenuOpen(false); }} label="Sobre" />
+                  <MobileNavButton active={activeSection === 'experience'} onClick={() => { setActiveSection('experience'); setIsMobileMenuOpen(false); }} label="Experiência" />
+                  <MobileNavButton active={activeSection === 'skills'} onClick={() => { setActiveSection('skills'); setIsMobileMenuOpen(false); }} label="Habilidades" />
+                  <MobileNavButton active={activeSection === 'portfolio'} onClick={() => { setActiveSection('portfolio'); setIsMobileMenuOpen(false); }} label="Portfólio" />
+                  <MobileNavButton active={activeSection === 'contact'} onClick={() => { setActiveSection('contact'); setIsMobileMenuOpen(false); }} label="Contato" />
+                  <button onClick={handleLock} className="w-full text-center py-3 text-gryffindor font-bold uppercase mt-2 border-t border-ink/20">
+                    Malfeito feito (Sair)
+                  </button>
+                </div>
+              </div>
+            )}
+          </header>
+
+          {/* Main Content Area - The "Map" */}
+          <main className="pt-24 pb-12 px-4 max-w-6xl mx-auto relative z-10 min-h-screen">
             
-            {/* Desktop Nav */}
-            <nav className="hidden md:flex space-x-8">
-              <NavButton active={activeSection === 'about'} onClick={() => setActiveSection('about')} icon={<ScrollText size={18} />} label="Sobre" />
-              <NavButton active={activeSection === 'experience'} onClick={() => setActiveSection('experience')} icon={<Briefcase size={18} />} label="Experiência" />
-              <NavButton active={activeSection === 'skills'} onClick={() => setActiveSection('skills')} icon={<Code size={18} />} label="Habilidades" />
-              <NavButton active={activeSection === 'portfolio'} onClick={() => setActiveSection('portfolio')} icon={<Map size={18} />} label="Portfólio" />
-              <NavButton active={activeSection === 'contact'} onClick={() => setActiveSection('contact')} icon={<Mail size={18} />} label="Contato" />
-            </nav>
+            {/* Paper Container */}
+            <div className="bg-parchment-light border-8 border-double border-ink/40 p-6 md:p-12 shadow-2xl relative min-h-[80vh] transform rotate-[0.5deg]">
+              {/* Corner Decorations */}
+              <div className="absolute top-0 left-0 w-16 h-16 border-t-4 border-l-4 border-ink pointer-events-none"></div>
+              <div className="absolute top-0 right-0 w-16 h-16 border-t-4 border-r-4 border-ink pointer-events-none"></div>
+              <div className="absolute bottom-0 left-0 w-16 h-16 border-b-4 border-l-4 border-ink pointer-events-none"></div>
+              <div className="absolute bottom-0 right-0 w-16 h-16 border-b-4 border-r-4 border-ink pointer-events-none"></div>
 
-            <div className="flex items-center space-x-4">
-              <button onClick={handleLock} className="text-xs uppercase tracking-widest border border-ink px-3 py-1 hover:bg-ink hover:text-parchment transition-colors hidden md:block">
-                Malfeito feito
-              </button>
-              <button className="md:hidden" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-                {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
+              {/* Content Render */}
+              <div className="animate-fade-in">
+                {activeSection === 'about' && <AboutSection />}
+                {activeSection === 'experience' && <ExperienceSection />}
+                {activeSection === 'skills' && <SkillsSection />}
+                {activeSection === 'portfolio' && <PortfolioSection />}
+                {activeSection === 'contact' && <ContactSection />}
+              </div>
             </div>
-          </div>
+
+          </main>
+
+          <footer className="bg-parchment-dark text-center py-6 border-t border-ink relative z-20">
+            <p className="font-handwriting text-xl opacity-70">
+              "A sutil arte da qualidade de software."
+            </p>
+          </footer>
         </div>
-
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden bg-parchment border-b border-ink absolute w-full">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col items-center">
-              <MobileNavButton active={activeSection === 'about'} onClick={() => { setActiveSection('about'); setIsMobileMenuOpen(false); }} label="Sobre" />
-              <MobileNavButton active={activeSection === 'experience'} onClick={() => { setActiveSection('experience'); setIsMobileMenuOpen(false); }} label="Experiência" />
-              <MobileNavButton active={activeSection === 'skills'} onClick={() => { setActiveSection('skills'); setIsMobileMenuOpen(false); }} label="Habilidades" />
-              <MobileNavButton active={activeSection === 'portfolio'} onClick={() => { setActiveSection('portfolio'); setIsMobileMenuOpen(false); }} label="Portfólio" />
-              <MobileNavButton active={activeSection === 'contact'} onClick={() => { setActiveSection('contact'); setIsMobileMenuOpen(false); }} label="Contato" />
-              <button onClick={handleLock} className="w-full text-center py-3 text-gryffindor font-bold uppercase mt-2 border-t border-ink/20">
-                Malfeito feito (Sair)
-              </button>
-            </div>
-          </div>
-        )}
-      </header>
-
-      {/* Main Content Area - The "Map" */}
-      <main className="pt-24 pb-12 px-4 max-w-6xl mx-auto relative z-10 min-h-screen">
-        
-        {/* Paper Container */}
-        <div className="bg-parchment-light border-8 border-double border-ink/40 p-6 md:p-12 shadow-2xl relative min-h-[80vh] transform rotate-[0.5deg]">
-           {/* Corner Decorations */}
-           <div className="absolute top-0 left-0 w-16 h-16 border-t-4 border-l-4 border-ink pointer-events-none"></div>
-           <div className="absolute top-0 right-0 w-16 h-16 border-t-4 border-r-4 border-ink pointer-events-none"></div>
-           <div className="absolute bottom-0 left-0 w-16 h-16 border-b-4 border-l-4 border-ink pointer-events-none"></div>
-           <div className="absolute bottom-0 right-0 w-16 h-16 border-b-4 border-r-4 border-ink pointer-events-none"></div>
-
-           {/* Content Render */}
-           <div className="animate-fade-in">
-             {activeSection === 'about' && <AboutSection />}
-             {activeSection === 'experience' && <ExperienceSection />}
-             {activeSection === 'skills' && <SkillsSection />}
-             {activeSection === 'portfolio' && <PortfolioSection />}
-             {activeSection === 'contact' && <ContactSection />}
-           </div>
-        </div>
-
-      </main>
-
-      <footer className="bg-parchment-dark text-center py-6 border-t border-ink relative z-20">
-        <p className="font-handwriting text-xl opacity-70">
-          "A sutil arte da qualidade de software."
-        </p>
-      </footer>
+      )}
     </div>
   );
 };

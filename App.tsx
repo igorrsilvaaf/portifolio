@@ -38,7 +38,7 @@ const App: React.FC = () => {
       <div className="fixed inset-0 z-0 pointer-events-none bg-parchment">
         <div className="absolute inset-0 bg-parchment/40 z-10 mix-blend-multiply"></div> {/* Tint overlay */}
         <img 
-            src="https://images5.alphacoders.com/605/605592.jpg" 
+            src="/mapa_do_maroto.jpg" 
             alt="Marauder's Map Background"
             className="w-full h-full object-cover opacity-80"
         />

@@ -32,17 +32,29 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-parchment-dark bg-paper-texture text-ink font-serif relative overflow-x-hidden">
-      {/* Persistent Footprints Layer - Remains mounted to keep trails alive */}
-      {/* z-0 places them behind the content containers (which are z-20 or z-10) */}
-      <Footprints />
+    <div className="min-h-screen w-full bg-parchment-dark text-ink font-serif relative overflow-x-hidden">
+      
+      {/* REAL MAP BACKGROUND */}
+      <div className="fixed inset-0 z-0 pointer-events-none bg-parchment">
+        <div className="absolute inset-0 bg-parchment/40 z-10 mix-blend-multiply"></div> {/* Tint overlay */}
+        <img 
+            src="https://images5.alphacoders.com/605/605592.jpg" 
+            alt="Marauder's Map Background"
+            className="w-full h-full object-cover opacity-80"
+        />
+      </div>
+
+      {/* Persistent Footprints Layer - z-index 1 to sit on top of the map */}
+      <div className="fixed inset-0 z-0">
+          <Footprints />
+      </div>
 
       {/* Conditional Content Layer */}
       {!unlocked ? (
         // Intro Screen
         <div className="h-screen w-full flex flex-col items-center justify-center relative z-20 animate-fade-in">
-            <div className="absolute inset-0 bg-black/40 z-10 pointer-events-none"></div>
-            <div className="z-20 text-center p-8 border-4 border-double border-ink rounded-lg bg-parchment max-w-2xl mx-4 shadow-2xl transform transition-all duration-1000 hover:scale-105">
+            <div className="absolute inset-0 bg-black/20 z-10 pointer-events-none"></div>
+            <div className="z-20 text-center p-8 border-4 border-double border-ink rounded-lg bg-parchment/95 backdrop-blur-sm max-w-2xl mx-4 shadow-2xl transform transition-all duration-1000 hover:scale-105">
             <h1 className="text-4xl md:text-6xl font-serif text-ink mb-8 font-bold tracking-wider">
                 O Mapa do Maroto
             </h1>
@@ -62,7 +74,6 @@ const App: React.FC = () => {
         </div>
       ) : (
         // Main Portfolio
-        // Removed bg-parchment/90 so the footprints on the "floor" are fully visible
         <div className="min-h-screen transition-opacity duration-1000 animate-fade-in relative z-20">
           
           {/* Header / Nav */}
@@ -135,7 +146,7 @@ const App: React.FC = () => {
 
           </main>
 
-          <footer className="bg-parchment-dark text-center py-6 border-t border-ink relative z-20">
+          <footer className="bg-parchment-dark/90 text-center py-6 border-t border-ink relative z-20 backdrop-blur-sm">
             <p className="font-handwriting text-xl opacity-70">
               "A sutil arte da qualidade de software."
             </p>

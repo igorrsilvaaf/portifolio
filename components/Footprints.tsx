@@ -26,7 +26,7 @@ interface Actor {
 }
 
 const FOOTPRINT_SPACING = 2.5; // Distance between steps in percentage
-const MAX_STEPS_PER_ACTOR = 50; // Much longer trails
+const MAX_STEPS_PER_ACTOR = 40; // Balanced number for a decent trail length
 
 const Footprints: React.FC = () => {
   const [actors, setActors] = useState<Actor[]>([]);
@@ -127,7 +127,15 @@ const Footprints: React.FC = () => {
             actor.idle = false;
         }
         
-        if (actor.idle) return actor;
+        if (actor.idle) {
+            // Even if idle, we still need to fade the existing steps
+             const fadingSteps = actor.steps.map(s => ({
+                ...s,
+                opacity: s.opacity - 0.005 
+            })).filter(s => s.opacity > 0);
+            
+            return { ...actor, steps: fadingSteps };
+        }
 
         // Normalize direction
         const vx = (dx / dist);
@@ -174,8 +182,9 @@ const Footprints: React.FC = () => {
         // Fade out existing steps
         newSteps = newSteps.map(s => ({
             ...s,
-            // Slower fade: 0.0005 instead of 0.001 keeps them visible longer
-            opacity: s.opacity - 0.0005 
+            // Slower fade: 0.005 per frame (approx 3.3 seconds to vanish)
+            // This creates a smoother gradient
+            opacity: s.opacity - 0.005 
         })).filter(s => s.opacity > 0);
 
         return {
@@ -222,12 +231,14 @@ const Footprints: React.FC = () => {
           ))}
 
           {/* Render Name Label near the latest position */}
-          {actor.steps.length > 0 && !actor.idle && (
+          {actor.steps.length > 0 && (
              <div 
                 className="absolute transform -translate-x-1/2 -translate-y-full pb-6 transition-all duration-300 ease-out z-10"
                 style={{
                     left: `${actor.x}%`,
                     top: `${actor.y}%`,
+                    // Name fades with last step, but stays a bit longer if idle
+                    opacity: actor.steps[actor.steps.length - 1]?.opacity || 0 
                 }}
              >
                 <div className="relative group">

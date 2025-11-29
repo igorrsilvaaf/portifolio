@@ -2,18 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { NavSection, Experience, Project, Skill, Certificate } from './types';
 import { USER_INFO, EXPERIENCES, SKILLS, PROJECTS, CERTIFICATES } from './constants';
 import Footprints from './components/Footprints';
-import { 
-  Map, 
-  ScrollText, 
-  Briefcase, 
-  GraduationCap, 
-  Code, 
+import {
+  Map,
+  ScrollText,
+  Briefcase,
+  GraduationCap,
+  Code,
   Mail,
-  Github,
+  GithubIcon,
   Linkedin,
   MapPin,
   X,
-  Menu
+  Menu,
 } from 'lucide-react';
 
 const App: React.FC = () => {
@@ -201,12 +201,12 @@ const AboutSection: React.FC = () => (
       
       <div className="grid grid-cols-2 gap-4 mt-8">
         <div className="bg-parchment border border-ink p-4 text-center rounded shadow transform hover:-translate-y-1 transition-transform">
-            <span className="block text-3xl font-bold text-gryffindor">3+</span>
+            <span className="block text-3xl font-bold text-gryffindor">6</span>
             <span className="text-sm uppercase tracking-wide">Anos de Experiência</span>
         </div>
         <div className="bg-parchment border border-ink p-4 text-center rounded shadow transform hover:-translate-y-1 transition-transform">
             <span className="block text-3xl font-bold text-gryffindor">15+</span>
-            <span className="text-sm uppercase tracking-wide">Certificações</span>
+            <span className="text-sm uppercase tracking-wide">Cursos e Certificações</span>
         </div>
       </div>
     </div>
@@ -290,7 +290,7 @@ const PortfolioSection: React.FC = () => (
             {/* Hover Overlay */}
             <div className="absolute inset-0 bg-parchment/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-4 z-20">
                 <a href={project.link} target="_blank" rel="noreferrer" className="bg-ink text-parchment px-6 py-2 rounded-full font-bold hover:bg-gryffindor transition-colors flex items-center space-x-2">
-                    <Github size={20} />
+                    <GithubIcon size={20} />
                     <span>Ver Código</span>
                 </a>
             </div>
@@ -332,7 +332,7 @@ const ContactSection: React.FC = () => (
                     <Linkedin size={32} />
                 </a>
                 <a href={USER_INFO.github} target="_blank" rel="noreferrer" className="text-ink hover:text-gryffindor transition-transform hover:scale-110">
-                    <Github size={32} />
+                    <GithubIcon size={32} />
                 </a>
             </div>
         </div>

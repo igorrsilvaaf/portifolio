@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>O Mapa do Maroto | Igor da Silva</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              parchment: {
+                light: '#f0e6d2',
+                DEFAULT: '#d8c8a8',
+                dark: '#bfa780',
+              },
+              ink: {
+                light: '#5d4037',
+                DEFAULT: '#3e2723',
+                dark: '#281815',
+              },
+              gryffindor: '#740001',
+            },
+            fontFamily: {
+              handwriting: ['"Satisfy"', 'cursive'],
+              serif: ['"IM Fell English"', 'serif'],
+            },
+            backgroundImage: {
+              'paper-texture': "url('https://www.transparenttextures.com/patterns/aged-paper.png')",
+            },
+            animation: {
+              'fade-in': 'fadeIn 2s ease-in-out',
+              'wiggle': 'wiggle 3s ease-in-out infinite',
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' },
+              },
+              wiggle: {
+                '0%, 100%': { transform: 'rotate(-3deg)' },
+                '50%': { transform: 'rotate(3deg)' },
+              }
+            }
+          },
+        },
+      }
+    </script>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Satisfy&display=swap" rel="stylesheet">
+    <style>
+      /* Custom Scrollbar for that magical feel */
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f0e6d2; 
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #5d4037; 
+        border-radius: 5px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #3e2723; 
+      }
+      
+      .footprint {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+        animation: stepFade 4s linear forwards;
+        color: #4a3631;
+        mix-blend-mode: multiply;
+      }
+      
+      @keyframes stepFade {
+        0% { opacity: 0; }
+        10% { opacity: 0.6; }
+        80% { opacity: 0.4; }
+        100% { opacity: 0; }
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0"
+  }
+}
+</script>
+</head>
+  <body class="bg-parchment text-ink overflow-x-hidden font-serif">
+    <div id="root"></div>
+  </body>
+</html>

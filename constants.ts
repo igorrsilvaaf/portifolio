@@ -49,20 +49,21 @@ export const EXPERIENCES: Experience[] = [
 ];
 
 export const SKILLS: Skill[] = [
-  { name: "Cypress", level: 50 },
+  { name: "Cypress", level: 80 },
+  { name: "Playwright", level: 80 },
   { name: "Jira", level: 60 },
-  { name: "Appium", level: 30 },
-  { name: "JMeter", level: 40 },
-  { name: "k6", level: 20 },
+  { name: "Appium", level: 80 },
+  { name: "JMeter", level: 50 },
+  { name: "k6", level: 50 },
   { name: "SQL & NoSQL", level: 70 },
-  { name: "Maestro", level: 40 },
+  { name: "Maestro", level: 60 },
   { name: "Git & GitHub", level: 80 },
-  { name: "Postman", level: 60 },
-  { name: "JavaScript", level: 40 },
-  { name: "RabbitMQ", level: 60 },
-  { name: "GCP", level: 90 },
-  { name: "ArgoCD", level: 70 },
-  { name: "Redis", level: 40 },
+  { name: "Postman", level: 90 },
+  { name: "JavaScript", level: 60 },
+  { name: "RabbitMQ", level: 30 },
+  { name: "GCP", level: 30 },
+  { name: "ArgoCD", level: 30 },
+  { name: "Redis", level: 30 },
 ];
 
 export const PROJECTS: Project[] = [

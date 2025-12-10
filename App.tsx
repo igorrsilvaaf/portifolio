@@ -66,8 +66,10 @@ const App: React.FC = () => {
               O Mapa do Maroto
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl font-handwriting text-ink-light mb-8 sm:mb-12">
-              Os Srs. Aluado, Rabicho, Almofadinhas e Pontas <br className="hidden sm:block" />
-              <span className="sm:hidden"> </span>apresentam orgulhosamente o portfólio de {USER_INFO.name}
+              Os Srs. Aluado, Rabicho, Almofadinhas e Pontas{" "}
+              <br className="hidden sm:block" />
+              <span className="sm:hidden"> </span>apresentam orgulhosamente o
+              portfólio de {USER_INFO.name}
             </p>
             <button
               onClick={handleUnlock}
@@ -294,15 +296,35 @@ const AboutSection: React.FC = () => (
 
       <div className="grid grid-cols-2 gap-3 sm:gap-4 mt-6 md:mt-8">
         <div className="bg-parchment border border-ink p-3 sm:p-4 text-center rounded shadow transform hover:-translate-y-1 transition-transform">
-          <span className="block text-2xl sm:text-3xl font-bold text-gryffindor">6</span>
+          <span className="block text-2xl sm:text-3xl font-bold text-gryffindor">
+            6
+          </span>
           <span className="text-xs sm:text-sm uppercase tracking-wide">
             Anos de Experiência
           </span>
         </div>
         <div className="bg-parchment border border-ink p-3 sm:p-4 text-center rounded shadow transform hover:-translate-y-1 transition-transform">
-          <span className="block text-2xl sm:text-3xl font-bold text-gryffindor">15+</span>
+          <span className="block text-2xl sm:text-3xl font-bold text-gryffindor">
+            15+
+          </span>
           <span className="text-xs sm:text-sm uppercase tracking-wide">
-            Cursos e Certificações
+            Cursos
+          </span>
+        </div>
+        <div className="bg-parchment border border-ink p-3 sm:p-4 text-center rounded shadow transform hover:-translate-y-1 transition-transform">
+          <span className="block text-2xl sm:text-3xl font-bold text-gryffindor">
+            1
+          </span>
+          <span className="text-xs sm:text-sm uppercase tracking-wide">
+            Graduação
+          </span>
+        </div>
+        <div className="bg-parchment border border-ink p-3 sm:p-4 text-center rounded shadow transform hover:-translate-y-1 transition-transform">
+          <span className="block text-2xl sm:text-3xl font-bold text-gryffindor">
+            1
+          </span>
+          <span className="text-xs sm:text-sm uppercase tracking-wide">
+            Pós-Graduação
           </span>
         </div>
       </div>
@@ -325,7 +347,9 @@ const ExperienceSection: React.FC = () => (
             <span className="text-xs sm:text-sm font-bold tracking-wider sm:tracking-widest text-gryffindor uppercase mb-2 block">
               {exp.period}
             </span>
-            <h3 className="text-xl sm:text-2xl font-bold text-ink">{exp.role}</h3>
+            <h3 className="text-xl sm:text-2xl font-bold text-ink">
+              {exp.role}
+            </h3>
             <h4 className="text-lg sm:text-xl font-handwriting text-ink/80 mb-3 md:mb-4">
               {exp.company}
             </h4>
@@ -360,7 +384,9 @@ const SkillsSection: React.FC = () => {
         {SKILLS.map((skill, index) => (
           <div key={index} className="mb-2 sm:mb-4">
             <div className="flex justify-between mb-1">
-              <span className="font-bold text-base sm:text-lg">{skill.name}</span>
+              <span className="font-bold text-base sm:text-lg">
+                {skill.name}
+              </span>
               <span className="font-handwriting text-base sm:text-lg">
                 {getSkillLabel(skill.level)}
               </span>
@@ -521,7 +547,12 @@ const ContactSection: React.FC = () => {
               </div>
               {showDownloadOptions && (
                 <div className="origin-top-right absolute left-0 mt-2 w-48 sm:w-56 rounded-md shadow-lg bg-parchment ring-1 ring-black ring-opacity-5 z-30">
-                  <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                  <div
+                    className="py-1"
+                    role="menu"
+                    aria-orientation="vertical"
+                    aria-labelledby="options-menu"
+                  >
                     <a
                       href="/Igor da Silva Francisco.pdf"
                       download
